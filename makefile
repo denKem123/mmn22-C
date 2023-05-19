@@ -1,8 +1,8 @@
 # Makefile
 
 # Compile the program
-program: mycomp.o complex.o
-	gcc -Wall -ansi -pedantic mycomp.o complex.o -o program
+prog: mycomp.o complex.o
+	gcc -Wall -ansi -pedantic mycomp.o complex.o -o prog
 
 # Compile mycomp.c
 mycomp.o: mycomp.c
@@ -10,4 +10,4 @@ mycomp.o: mycomp.c
 
 # Compile complex.c
 complex.o: complex.c complex.h
-	gcc -Wall -ansi -pedantic -c complex.c
+	gcc -Wall -ansi -pedantic -c complex.c -lm
