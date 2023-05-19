@@ -1,4 +1,4 @@
-#include "complex.c"
+#include "complex.h"
 #include "mycomp.h"
 
 int main()
