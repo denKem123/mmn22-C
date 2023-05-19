@@ -17,7 +17,7 @@ Complex create_comp(double real, double img)
 */
 void print_comp(Complex comp)
 {
-    printf("%.2f %s (%.2f)i", comp.real, comp.img < 0 ? '-' : '+', comp.img < 0 ? comp.img * -1 : comp.img);
+    printf("%.2f %s (%.2f)i", comp.real, comp.img < 0 ? "-" : "+", comp.img < 0 ? comp.img * -1 : comp.img);
 }
 
 /*
