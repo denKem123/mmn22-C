@@ -1,4 +1,4 @@
-#include "complex.h"
+#include "complex.c"
 
 int main()
 {
