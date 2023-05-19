@@ -1,4 +1,5 @@
 #include "complex.h"
+#include <math.h>
 
 /*
     create a new Complex struct
@@ -85,5 +86,5 @@ Complex mult_comp_comp(Complex first, Complex second)
 */
 double abs_comp(Complex comp)
 {
-    return 1;
+    return sqrt(comp.img * comp.img + comp.real * comp.real);
 }

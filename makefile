@@ -10,4 +10,4 @@ mycomp.o: mycomp.c complex.h mycomp.h
 
 # Compile complex.c
 complex.o: complex.c complex.h
-	gcc -Wall -ansi -pedantic -c complex.c
+	gcc -Wall -ansi -pedantic -c complex.c -lm
