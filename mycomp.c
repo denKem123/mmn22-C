@@ -13,8 +13,5 @@ int main()
     f = create_comp(0, 0);
 
     printf("Enter a string: ");
-    while (strcmp(fgets(str, MAX_LENGTH, stdin), STOP_COMMAND))
-    {
-    }
-    printf("%s", str);
+    printf("%s", fgets(str, MAX_LENGTH, stdin));
 }
