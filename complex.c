@@ -86,5 +86,5 @@ Complex mult_comp_comp(Complex first, Complex second)
 */
 double abs_comp(Complex comp)
 {
-    return sqrt(comp.img * comp.img + comp.real * comp.real);
+    return 1;
 }
