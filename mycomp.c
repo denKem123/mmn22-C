@@ -1,4 +1,4 @@
-#include "complex.h"
+#include "complex.c"
 #include "mycomp.h"
 
 int main()
@@ -13,5 +13,5 @@ int main()
     f = create_comp(0, 0);
 
     printf("Enter a string: ");
-    printf("%s", fgets(str, MAX_LENGTH, stdin));
+    printf("%d",strcmp(fgets(str, MAX_LENGTH, stdin), STOP_COMMAND));
 }
