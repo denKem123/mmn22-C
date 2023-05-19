@@ -1,4 +1,3 @@
-#include "complex.c"
 #include "mycomp.h"
 
 int main()

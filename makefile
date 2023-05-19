@@ -6,7 +6,7 @@ prog: mycomp.o complex.o
 
 # Compile mycomp.c
 mycomp.o: mycomp.c
-	gcc -Wall -ansi -pedantic mycomp.c
+	gcc -Wall -ansi -pedantic mycomp.o
 
 # Compile complex.c
 complex.o: complex.c complex.h
