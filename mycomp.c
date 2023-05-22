@@ -15,7 +15,7 @@ int main()
     printf("Enter a string: ");
     /*  do
      {*/
-    gets(str);
+    fgets(str);
     printf("%s", getop(*str));
     printf("%s", str);
     /* } while ();*/
