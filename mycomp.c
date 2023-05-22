@@ -1,4 +1,3 @@
-#include "complex.h"
 #include "mycomp.h"
 
 Complex a, b, c, d, e, f;
@@ -48,6 +47,25 @@ Command getop(char *str)
         printf("Illegal comma");
     }
     return p;
+}
+
+Complex get_complex(char var)
+{
+    switch (var)
+    {
+    case 65:
+        return a;
+    case 66:
+        return b;
+    case 67:
+        return c;
+    case 68:
+        return d;
+    case 69:
+        return e;
+    default:
+        return f;
+    }
 }
 
 void handle_op(Command c)

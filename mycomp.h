@@ -1,4 +1,5 @@
 #include <string.h>
+#include "complex.h"
 
 #define MAX_LENGTH 80
 #define STOP_COMMAND "stop"
@@ -18,10 +19,14 @@ typedef struct
     int isNotNull;
 } Command;
 
-Command getop(char *str);
+
 unsigned int isvalidvariable(char v);
 unsigned int isdoublecomma(char *str);
+
+Command getop(char *str);
 void handle_op(Command c);
+Complex get_complex(char var);
+
 void read_comp_op(char *str);
 void print_comp_op(char *str);
 void add_comp_op(char *str);
