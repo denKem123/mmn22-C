@@ -3,4 +3,11 @@
 #define MAX_LENGTH 80
 #define STOP_COMMAND "stop"
 
-char* getop(char* str);
+
+typedef struct
+{
+    char* result;
+    char* updateStr;
+} Partition;
+
+Partition getop(char* str);

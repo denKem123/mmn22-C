@@ -15,20 +15,22 @@ int main()
     printf("Enter a string: ");
     /*  do
      {*/
-    fgets(str);
-    printf("%s", getop(*str));
-    printf("%s", str);
+    fgets(str,MAX_LENGTH, stdin);
+    Partition p =  getop(str);
+    printf("%s",p.result);
+    printf("%s", p.updateStr);
     /* } while ();*/
     return 0;
 }
 
-char *getop(char *str)
+Partition getop(char *str)
 {
-    char *res;
+    Partition p;
     int i;
-    for (i = 0; str[i] && str[i] != ' '; i++)
-        ;
-    strncpy(res, str, i);
-    str = str + i;
-    return res;
+    for (i = 0; str[i] && str[i] != ' '; i++);
+    char* op = malloc((i+1) * sizeof(char));
+    strncpy(op, str, i);
+    p.result = op;
+    p.updateStr = str+i;
+    return p;
 }
