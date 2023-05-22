@@ -13,14 +13,15 @@ int main()
     f = create_comp(0, 0);
 
     printf("Enter a string: ");
-    /*  do
-     {*/
-    fgets(str, MAX_LENGTH, stdin);
-    Partition p;
-    p = getop(str);
-    printf("%s,", p.result);
-    printf("%s,", p.updateStr);
-    /* } while ();*/
+    while (1)
+    {
+        fgets(str, MAX_LENGTH, stdin);
+        Partition p;
+        p = getop(str);
+        if (!strcmp(p.result, STOP_COMMAND))
+            break;
+    }
+
     return 0;
 }
 
@@ -28,12 +29,12 @@ Partition getop(char *str)
 {
     Partition p;
     int i;
-    for (i = 0; str[i] && str[i] != ' '; i++)
+    for (i = 0; str[i] && str[i] != ' ' && str[i] != '\n'; i++)
         ;
     char *op;
     op = malloc((i + 1) * sizeof(char));
     strncpy(op, str, i);
     p.result = op;
-    p.updateStr = str + i;
+    p.nextPartitions = str + i;
     return p;
 }
