@@ -15,7 +15,7 @@ int main()
     printf("Enter a string: ");
     /*  do
      {*/
-    gets(str, MAX_LENGTH, stdin);
+    gets(str);
     printf("%s", getop(*str));
     printf("%s", str);
     /* } while ();*/
