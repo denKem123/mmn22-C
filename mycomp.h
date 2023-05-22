@@ -15,7 +15,7 @@ typedef struct
 {
     char *op;
     char *params;
-    int isNull;
+    int isNotNull;
 } Command;
 
 Command getop(char *str);

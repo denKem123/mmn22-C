@@ -12,14 +12,15 @@ int main()
     e = create_comp(0, 0);
     f = create_comp(0, 0);
 
+    Command cmd;
+
     printf("Enter a string: \n");
     while (1)
     {
         fgets(str, MAX_LENGTH, stdin);
         printf("\n");
-        Command cmd;
         cmd = getop(str);
-        if (!cmd.isNull)
+        if (cmd.isNotNull)
             handle_op(cmd);
     }
 
@@ -39,7 +40,7 @@ Command getop(char *str)
         strncpy(op, str, i);
         p.op = op;
         p.params = str + i;
-        p.isNull = 0;
+        p.isNotNull = 1;
     }
     else
     {
