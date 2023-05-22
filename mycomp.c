@@ -1,10 +1,11 @@
 #include "complex.h"
 #include "mycomp.h"
 
+Complex a, b, c, d, e, f;
+
 int main()
 {
     char str[MAX_LENGTH];
-    Complex a, b, c, d, e, f;
     a = create_comp(0, 0);
     b = create_comp(0, 0);
     c = create_comp(0, 0);
