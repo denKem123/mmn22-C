@@ -11,11 +11,11 @@ typedef struct
 } Partition;
 
 Partition getop(char* str);
-void read_comp(char* str);
-void print_comp(char* str);
-void add_comp(char* str);
-void sub_comp(char* str);
-void mult_comp_real(char* str);
-void mult_comp_img(char* str);
-void mult_comp_comp(char* str);
-void abs_comp(char* str);
+void read_comp_op(char* str);
+void print_comp_op(char* str);
+void add_comp_op(char* str);
+void sub_comp_op(char* str);
+void mult_comp_real_op(char* str);
+void mult_comp_img_op(char* str);
+void mult_comp_comp_op(char* str);
+void abs_comp_op(char* str);
