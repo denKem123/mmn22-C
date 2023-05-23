@@ -114,7 +114,7 @@ ComplexParams getcomplexvar(char *str, unsigned int isLast)
     return cp;
 }
 
-DoubleParams getdouble(char *str, int isLast)
+DoubleParams getdoubleparams(char *str, int isLast)
 {
     DoubleParams dp;
     int i;
@@ -205,9 +205,9 @@ void read_comp_op(char *str)
     DoubleParams dpImg;
     cp = getcomplexvar(str, 0);
     if (cp.isNotNull)
-        dpReal = getdouble(cp.params, 0);
+        dpReal = getdoubleparams(cp.params, 0);
     if (dpReal.isNotNull)
-        dpImg = getdouble(dpReal.params, 1);
+        dpImg = getdoubleparams(dpReal.params, 1);
 
     if (cp.isNotNull && dpReal.isNotNull && dpImg.isNotNull)
     {

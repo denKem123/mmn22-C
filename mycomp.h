@@ -40,7 +40,7 @@ unsigned int isdoublecomma(char *str);
 
 Command getop(char *str);
 ComplexParams getcomplexvar(char *str, unsigned int isLast);
-DoubleParams getdouble(char *str, unsigned int isLast);
+DoubleParams getdoubleparams(char *str, unsigned int isLast);
 unsigned int handle_op(Command c);
 char *removeSpaces(char *str);
 Complex *get_complex(char var);
