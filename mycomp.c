@@ -26,7 +26,7 @@ int main()
         }
         else
         {
-            printf("Error reading input.\n");
+            printf("\nError reading input.");
             break;
         }
     }
