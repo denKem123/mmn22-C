@@ -13,13 +13,13 @@ int main()
     e = create_comp(0, 0);
     f = create_comp(0, 0);
 
-    printf("Enter a string: \n");
+   
     while (1)
     {
+        printf("Enter a command: \n");
         if (fgets(str, MAX_LENGTH, stdin) != NULL)
         {
             Command cmd;
-            printf("\n");
             cmd = getop(str);
             if (cmd.isNotNull && !handle_op(cmd))
                 break;
