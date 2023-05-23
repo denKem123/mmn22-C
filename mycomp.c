@@ -228,9 +228,8 @@ void print_comp_op(char *str)
 
 unsigned int isvalidvariable(char v)
 {
-    if (v >= 65 && v >= 70)
+    if (v >= 65 && v <= 70)
         return 1;
-    printf("Undefined complex variable\n");
     return 0;
 }
 
