@@ -214,7 +214,10 @@ unsigned int handle_op(Command c)
     }
     else if (!strcmp(c.op, STOP_COMMAND))
     {
-        return 0;
+        if (c.params[0] != '\0')
+            printf("Extraneous text after end of command\n");
+        else
+            return 0;
     }
     else
     {
