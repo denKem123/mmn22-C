@@ -5,7 +5,6 @@ Complex a, b, c, d, e, f;
 int main()
 {
     char str[MAX_LENGTH];
-    char old[MAX_LENGTH];
 
     a = create_comp(0, 0);
     b = create_comp(0, 0);
@@ -14,14 +13,12 @@ int main()
     e = create_comp(0, 0);
     f = create_comp(0, 0);
 
-    Command cmd;
-
     printf("Enter a string: \n");
     while (1)
     {
-        fgets(str, MAX_LENGTH, stdin);
         if (fgets(str, MAX_LENGTH, stdin) != NULL)
         {
+            Command cmd;
             printf("\n");
             cmd = getop(str);
             if (cmd.isNotNull && !handle_op(cmd))
