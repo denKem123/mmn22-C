@@ -84,7 +84,6 @@ char *removeSpaces(char *str)
 
 void handle_op(Command c)
 {
-    printf("%s\n", c.params);
     if (!strcmp(c.op, READ_COMP))
     {
     }
@@ -108,10 +107,6 @@ void read_comp_op(char *str)
     {
         return;
     }
-    int comma1;
-    int comma2;
-    char *param2;
-    char *param3;
 }
 
 unsigned int isvalidvariable(char v)
