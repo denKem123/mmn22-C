@@ -15,7 +15,7 @@ int main()
     Command cmd;
 
     printf("Enter a string: \n");
-    while (1)
+    while (str[0] != '\0')
     {
         fgets(str, MAX_LENGTH, stdin);
         printf("\n");
@@ -84,8 +84,8 @@ char *removeSpaces(char *str)
 
 void handle_op(Command c)
 {
-    printf("%s",c.op);
-    printf("%s",c.params);
+    printf("%s", c.op);
+    printf("%s", c.params);
     if (!strcmp(c.op, READ_COMP))
     {
     }
