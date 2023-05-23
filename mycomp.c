@@ -188,6 +188,30 @@ unsigned int handle_op(Command c)
     {
         print_comp_op(c.params);
     }
+    else if (!strcmp(c.op, ADD_COMP))
+    {
+        add_comp_op(c.params);
+    }
+    else if (!strcmp(c.op, SUB_COMP))
+    {
+        sub_comp_op(c.params);
+    }
+    else if (!strcmp(c.op, MULT_COMP_REAL))
+    {
+        mult_comp_real_op(c.params);
+    }
+    else if (!strcmp(c.op, MULT_COMP_IMG))
+    {
+        mult_comp_img_op(c.params);
+    }
+    else if (!strcmp(c.op, MULT_COMP_COMP))
+    {
+        mult_comp_comp_op(c.params);
+    }
+    else if (!strcmp(c.op, abs_comp))
+    {
+        abs_comp_op(c.params);
+    }
     else if (!strcmp(c.op, STOP_COMMAND))
     {
         return 0;
@@ -223,6 +247,68 @@ void print_comp_op(char *str)
     if (cp.isNotNull)
     {
         print_comp(*cp.var);
+    }
+}
+
+void add_comp_op(char *str)
+{
+    ComplexParams cp1;
+    ComplexParams cp2;
+    cp1 = getcomplexvar(str, 0);
+    if (cp1.isNotNull)
+        cp2 = getcomplexvar(cp1.params, 1);
+    if (cp1.isNotNull && cp2.isNotNull)
+    {
+        print_comp(add_comp(*cp1.var, *cp2.var));
+    }
+}
+
+void sub_comp_op(char *str)
+{
+    ComplexParams cp1;
+    ComplexParams cp2;
+    cp1 = getcomplexvar(str, 0);
+    if (cp1.isNotNull)
+        cp2 = getcomplexvar(cp1.params, 1);
+    if (cp1.isNotNull && cp2.isNotNull)
+    {
+        print_comp(sub_comp(*cp1.var, *cp2.var));
+    }
+}
+
+void mult_comp_real_op(char *str)
+{
+    ComplexParams cp;
+    DoubleParams dp;
+    cp = getcomplexvar(str, 0);
+    if (cp.isNotNull)
+        dp = getdoubleparams(cp.params, 1);
+    if (cp.isNotNull && dp.isNotNull)
+    {
+        print_comp(mult_comp_real(dp.num, *cp.var));
+    }
+}
+
+void mult_comp_comp_op(char *str)
+{
+    ComplexParams cp1;
+    ComplexParams cp2;
+    cp1 = getcomplexvar(str, 0);
+    if (cp1.isNotNull)
+        cp2 = getcomplexvar(cp1.params, 1);
+    if (cp1.isNotNull && cp2.isNotNull)
+    {
+        print_comp(mult_comp_comp(*cp1.var, *cp2.var));
+    }
+}
+
+void abs_comp_op(char *str)
+{
+    ComplexParams cp;
+    cp = getcomplexvar(str, 1);
+    if (cp.isNotNull)
+    {
+        printf("%.2f\n", abs_comp(*cp.var));
     }
 }
 
