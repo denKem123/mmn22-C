@@ -184,7 +184,10 @@ char *removeSpaces(char *str)
 
 unsigned int handle_op(Command c)
 {
-    if (!strcmp(c.op, READ_COMP))
+    if(isdoublecomma(c.params)){
+        printf("Multiple consecutive commas\n");
+    }
+    else if (!strcmp(c.op, READ_COMP))
     {
         read_comp_op(c.params);
     }
@@ -346,7 +349,6 @@ unsigned int isdoublecomma(char *str)
     {
         if (str[i] == DIVIDER && str[i + 1] == DIVIDER)
         {
-            printf("Multiple consecutive commas\n");
             return 1;
         }
     }
