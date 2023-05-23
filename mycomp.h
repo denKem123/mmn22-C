@@ -1,4 +1,5 @@
 #include <string.h>
+#include <ctype.h>
 #include "complex.h"
 
 #define MAX_LENGTH 80
@@ -15,16 +16,16 @@
 typedef struct
 {
     char *op;
-    char *params;
+    char * params;
     int isNotNull;
 } Command;
-
 
 unsigned int isvalidvariable(char v);
 unsigned int isdoublecomma(char *str);
 
 Command getop(char *str);
 void handle_op(Command c);
+char* removeSpaces(char* str);
 Complex get_complex(char var);
 
 void read_comp_op(char *str);

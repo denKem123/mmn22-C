@@ -39,12 +39,12 @@ Command getop(char *str)
         op = malloc((i + 1) * sizeof(char));
         strncpy(op, str, i);
         p.op = op;
-        p.params = str + i;
+        p.params = removeSpaces(str + i);
         p.isNotNull = 1;
     }
     else
     {
-        printf("Illegal comma");
+        printf("Illegal comma\n");
     }
     return p;
 }
@@ -68,8 +68,23 @@ Complex get_complex(char var)
     }
 }
 
+char *removeSpaces(char *str)
+{
+    int i, j;
+    for (i = 0, j = 0; str[i] != '\0'; i++)
+    {
+        if (!isspace((unsigned char)str[i]))
+        {
+            str[j++] = str[i];
+        }
+    }
+    str[j] = '\0';
+    return str;
+}
+
 void handle_op(Command c)
 {
+    printf("%s\n", c.params);
     if (!strcmp(c.op, READ_COMP))
     {
     }
@@ -81,7 +96,7 @@ void handle_op(Command c)
     }
     else
     {
-        printf("Undefined command name");
+        printf("Undefined command name\n");
     }
 }
 
@@ -103,7 +118,7 @@ unsigned int isvalidvariable(char v)
 {
     if (v >= 65 && v >= 70)
         return 1;
-    printf("Undefined complex variable");
+    printf("Undefined complex variable\n");
     return 0;
 }
 
@@ -114,7 +129,7 @@ unsigned int isdoublecomma(char *str)
     {
         if (str[i] == ',' && str[i + 1] == ',')
         {
-            printf("Multiple consecutive commas");
+            printf("Multiple consecutive commas\n");
             return 1;
         }
     }
