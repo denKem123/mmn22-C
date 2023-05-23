@@ -15,7 +15,7 @@ int main()
     Command cmd;
 
     printf("Enter a string: \n");
-    while (str[0] != '\0')
+    while (str[0] != '\n')
     {
         fgets(str, MAX_LENGTH, stdin);
         printf("\n");
