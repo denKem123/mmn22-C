@@ -123,7 +123,8 @@ DoubleParams getdoubleparams(char *str, int isLast)
     char *doubleStr;
     doubleStr = malloc((i + 1) * sizeof(char));
     strncpy(doubleStr, str, i);
-    double number = atof(doubleStr);
+    double number;
+    number = atof(doubleStr);
     free(doubleStr);
     if (number != 0.0)
     {
