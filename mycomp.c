@@ -13,7 +13,6 @@ int main()
     e = create_comp(0, 0);
     f = create_comp(0, 0);
 
-   
     while (1)
     {
         printf("Enter a command: \n");
@@ -38,9 +37,9 @@ Command getop(char *str)
 {
     Command p;
     int i;
-    for (i = 0; str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != ','; i++)
+    for (i = 0; str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != DIVIDER; i++)
         ;
-    if (str[i] != ',')
+    if (str[i] != DIVIDER)
     {
         char *op;
         op = malloc((i + 1) * sizeof(char));
@@ -56,29 +55,118 @@ Command getop(char *str)
     return p;
 }
 
-Complex get_complex(char var)
+Complex *get_complex(char var)
 {
     switch (var)
     {
     case 65:
-        return a;
+        return &a;
     case 66:
-        return b;
+        return &b;
     case 67:
-        return c;
+        return &c;
     case 68:
-        return d;
+        return &d;
     case 69:
-        return e;
+        return &e;
     default:
-        return f;
+        return &f;
     }
+}
+
+ComplexParams getcomplexvar(char *str, unsigned int isLast)
+{
+    ComplexParams cp;
+    if (isvalidvariable(str[0]))
+    {
+        if (isLast && str[1] != DIVIDER)
+        {
+            cp.isNotNull = 1;
+            cp.params = "";
+            cp.var = get_complex(str[0]);
+        }
+        else if (!isLast && str[1] == DIVIDER)
+        {
+            cp.isNotNull = 1;
+            cp.params = str + 2;
+            cp.var = get_complex(str[0]);
+        }
+        else if (!isLast)
+        {
+            printf("Missing comma\n");
+        }
+        else
+        {
+            printf("Extraneous text after end of command \n");
+        }
+    }
+    else
+    {
+        if (str[0] == '\0')
+        {
+            printf("Missing parameter\n");
+        }
+        else
+        {
+            printf("Undefined complex variable\n");
+        }
+    }
+    return cp;
+}
+
+DoubleParams getdouble(char *str, int isLast)
+{
+    DoubleParams dp;
+    int i;
+    for (i = 0; str[i] && str[i] != DIVIDER; i++)
+        ;
+    char *doubleStr;
+    doubleStr = malloc((i + 1) * sizeof(char));
+    strncpy(doubleStr, str, i);
+    double number = atof(doubleStr);
+    free(doubleStr);
+    if (number != 0.0)
+    {
+        if (isLast && str[1] != DIVIDER)
+        {
+            dp.isNotNull = 1;
+            dp.params = "";
+            dp.num = number;
+        }
+        else if (!isLast && str[1] == DIVIDER)
+        {
+            dp.isNotNull = 1;
+            dp.params = str + i;
+            dp.num = number;
+        }
+        else if (!isLast)
+        {
+            printf("Missing comma\n");
+        }
+        else
+        {
+            printf("Extraneous text after end of command \n");
+        }
+    }
+    else
+    {
+        if (str[0] == '\0')
+        {
+            printf("Missing parameter\n");
+        }
+        else
+        {
+            printf("Invalid parameter – not a number\n");
+        }
+    }
+
+    return dp;
 }
 
 char *removeSpaces(char *str)
 {
     int i, j;
-    for (i = 0, j = 0; str[i] != '\0'; i++)
+    for (i = 0, j = 0; str[i]; i++)
     {
         if (!isspace((unsigned char)str[i]))
         {
@@ -91,13 +179,13 @@ char *removeSpaces(char *str)
 
 unsigned int handle_op(Command c)
 {
-    printf("%s", c.op);
-    printf("%s", c.params);
     if (!strcmp(c.op, READ_COMP))
     {
+        read_comp_op(c.params);
     }
     else if (!strcmp(c.op, PRINT_COMP))
     {
+        print_comp_op(c.params);
     }
     else if (!strcmp(c.op, STOP_COMMAND))
     {
@@ -112,11 +200,28 @@ unsigned int handle_op(Command c)
 
 void read_comp_op(char *str)
 {
-    char param1;
-    param1 = str[0];
-    if (!isvalidvariable(param1))
+    ComplexParams cp;
+    DoubleParams dpReal;
+    DoubleParams dpImg;
+    cp = getcomplexvar(str, 0);
+    if (cp.isNotNull)
+        dpReal = getdouble(cp.params, 0);
+    if (dpReal.isNotNull)
+        dpImg = getdouble(dpReal.params, 1);
+
+    if (cp.isNotNull && dpReal.isNotNull && dpImg.isNotNull)
     {
-        return;
+        *cp.var = create_comp(dpReal.num, dpImg.num);
+    }
+}
+
+void print_comp_op(char *str)
+{
+    ComplexParams cp;
+    cp = getcomplexvar(str, 0);
+    if (cp.isNotNull)
+    {
+        print_comp(*cp.var);
     }
 }
 
@@ -133,7 +238,7 @@ unsigned int isdoublecomma(char *str)
     int i;
     for (i = 0; str[i]; i++)
     {
-        if (str[i] == ',' && str[i + 1] == ',')
+        if (str[i] == DIVIDER && str[i + 1] == DIVIDER)
         {
             printf("Multiple consecutive commas\n");
             return 1;
