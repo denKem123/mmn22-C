@@ -208,7 +208,7 @@ unsigned int handle_op(Command c)
     {
         mult_comp_comp_op(c.params);
     }
-    else if (!strcmp(c.op, abs_comp))
+    else if (!strcmp(c.op, ABS_COMP))
     {
         abs_comp_op(c.params);
     }
