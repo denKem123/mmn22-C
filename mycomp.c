@@ -36,8 +36,8 @@ int main()
 Command getop(char *str)
 {
     Command p;
-    p.isNotNull = 0;
     int i;
+    p.isNotNull = 0;
     for (i = 0; str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != DIVIDER; i++)
         ;
     if (str[i] != DIVIDER)
@@ -119,10 +119,11 @@ ComplexParams getcomplexvar(char *str, unsigned int isLast)
 DoubleParams getdoubleparams(char *str, unsigned int isLast)
 {
     DoubleParams dp;
-    dp.isNotNull = 0;
     char *doubleStr;
     double number;
     int i;
+    
+    dp.isNotNull = 0;
     for (i = 0; str[i] && str[i] != DIVIDER; i++)
         ;
     doubleStr = malloc((i + 1) * sizeof(char));
