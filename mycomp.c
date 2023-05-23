@@ -15,10 +15,11 @@ int main()
 
     while (1)
     {
-        printf("Enter a command: \n");
+        printf("Enter a command:");
         if (fgets(str, MAX_LENGTH, stdin) != NULL)
         {
             Command cmd;
+            printf("\n%s\n",str);
             cmd = getop(str);
             if (cmd.isNotNull && !handle_op(cmd))
                 break;
