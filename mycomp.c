@@ -84,6 +84,8 @@ char *removeSpaces(char *str)
 
 void handle_op(Command c)
 {
+    printf("%s",c.op);
+    printf("%s",c.params);
     if (!strcmp(c.op, READ_COMP))
     {
     }
