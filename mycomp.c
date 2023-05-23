@@ -117,24 +117,24 @@ ComplexParams getcomplexvar(char *str, unsigned int isLast)
 DoubleParams getdoubleparams(char *str, unsigned int isLast)
 {
     DoubleParams dp;
+    char *doubleStr;
+    double number;
     int i;
     for (i = 0; str[i] && str[i] != DIVIDER; i++)
         ;
-    char *doubleStr;
     doubleStr = malloc((i + 1) * sizeof(char));
     strncpy(doubleStr, str, i);
-    double number;
     number = atof(doubleStr);
     free(doubleStr);
     if (number != 0.0)
     {
-        if (isLast && str[1] != DIVIDER)
+        if (isLast && str[i] != DIVIDER)
         {
             dp.isNotNull = 1;
             dp.params = "";
             dp.num = number;
         }
-        else if (!isLast && str[1] == DIVIDER)
+        else if (!isLast && str[i] == DIVIDER)
         {
             dp.isNotNull = 1;
             dp.params = str + i;
