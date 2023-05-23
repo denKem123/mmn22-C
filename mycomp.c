@@ -137,7 +137,7 @@ DoubleParams getdoubleparams(char *str, unsigned int isLast)
         else if (!isLast && str[i] == DIVIDER)
         {
             dp.isNotNull = 1;
-            dp.params = str + i;
+            dp.params = str + i + 1;
             dp.num = number;
         }
         else if (!isLast)
@@ -219,7 +219,7 @@ void read_comp_op(char *str)
 void print_comp_op(char *str)
 {
     ComplexParams cp;
-    cp = getcomplexvar(str, 0);
+    cp = getcomplexvar(str, 1);
     if (cp.isNotNull)
     {
         print_comp(*cp.var);
