@@ -292,6 +292,19 @@ void mult_comp_real_op(char *str)
     }
 }
 
+void mult_comp_img_op(char *str)
+{
+    ComplexParams cp;
+    DoubleParams dp;
+    cp = getcomplexvar(str, 0);
+    if (cp.isNotNull)
+        dp = getdoubleparams(cp.params, 1);
+    if (cp.isNotNull && dp.isNotNull)
+    {
+        print_comp(mult_comp_img(dp.num, *cp.var));
+    }
+}
+
 void mult_comp_comp_op(char *str)
 {
     ComplexParams cp1;
