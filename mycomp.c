@@ -114,7 +114,7 @@ ComplexParams getcomplexvar(char *str, unsigned int isLast)
     return cp;
 }
 
-DoubleParams getdoubleparams(char *str, int isLast)
+DoubleParams getdoubleparams(char *str, unsigned int isLast)
 {
     DoubleParams dp;
     int i;
