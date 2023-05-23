@@ -95,7 +95,10 @@ ComplexParams getcomplexvar(char *str, unsigned int isLast)
         }
         else if (!isLast)
         {
-            printf("Missing comma\n");
+            if (str[1] != '\0')
+                printf("Missing comma\n");
+            else
+                printf("Missing parameter\n");
         }
         else
         {
@@ -122,7 +125,7 @@ DoubleParams getdoubleparams(char *str, unsigned int isLast)
     char *doubleStr;
     double number;
     int i;
-    
+
     dp.isNotNull = 0;
     for (i = 0; str[i] && str[i] != DIVIDER; i++)
         ;
@@ -146,7 +149,10 @@ DoubleParams getdoubleparams(char *str, unsigned int isLast)
         }
         else if (!isLast)
         {
-            printf("Missing comma\n");
+            if (str[i] != '\0')
+                printf("Missing comma\n");
+            else
+                printf("Missing parameter\n");
         }
         else
         {
@@ -184,7 +190,8 @@ char *removeSpaces(char *str)
 
 unsigned int handle_op(Command c)
 {
-    if(isdoublecomma(c.params)){
+    if (isdoublecomma(c.params))
+    {
         printf("Multiple consecutive commas\n");
     }
     else if (!strcmp(c.op, READ_COMP))
