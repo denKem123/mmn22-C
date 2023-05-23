@@ -5,6 +5,8 @@ Complex a, b, c, d, e, f;
 int main()
 {
     char str[MAX_LENGTH];
+    char old[MAX_LENGTH];
+
     a = create_comp(0, 0);
     b = create_comp(0, 0);
     c = create_comp(0, 0);
@@ -15,13 +17,21 @@ int main()
     Command cmd;
 
     printf("Enter a string: \n");
-    while (str[0] != '\n')
+    while (1)
     {
         fgets(str, MAX_LENGTH, stdin);
-        printf("\n");
-        cmd = getop(str);
-        if (cmd.isNotNull)
-            handle_op(cmd);
+        if (fgets(str, MAX_LENGTH, stdin) != NULL)
+        {
+            printf("\n");
+            cmd = getop(str);
+            if (cmd.isNotNull && !handle_op(cmd))
+                break;
+        }
+        else
+        {
+            printf("Error reading input.\n");
+            break;
+        }
     }
 
     return 0;
@@ -82,7 +92,7 @@ char *removeSpaces(char *str)
     return str;
 }
 
-void handle_op(Command c)
+unsigned int handle_op(Command c)
 {
     printf("%s", c.op);
     printf("%s", c.params);
@@ -94,11 +104,13 @@ void handle_op(Command c)
     }
     else if (!strcmp(c.op, STOP_COMMAND))
     {
+        return 0;
     }
     else
     {
         printf("Undefined command name\n");
     }
+    return 1;
 }
 
 void read_comp_op(char *str)

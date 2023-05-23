@@ -24,7 +24,7 @@ unsigned int isvalidvariable(char v);
 unsigned int isdoublecomma(char *str);
 
 Command getop(char *str);
-void handle_op(Command c);
+unsigned int handle_op(Command c);
 char* removeSpaces(char* str);
 Complex get_complex(char var);
 
