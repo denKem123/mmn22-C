@@ -45,7 +45,8 @@ Command getop(char *str)
     {
         char *op;
         op = malloc(MAX_LENGTH * sizeof(char));
-        strncpy(op, str, i);
+        strcpy(op, str);
+        op[i]='\0';
         p.op = op;
         p.params = removeSpaces(str + i);
         p.isNotNull = 1;
