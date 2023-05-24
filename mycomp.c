@@ -21,7 +21,7 @@ int main()
             Command cmd;
             printf("\n%s", str);
             cmd = getop(trimString(str));
-            if (cmd.isNotNull && !handle_op(cmd))
+            if (cmd.isNotNull && handle_op(cmd))
                 break;
         }
         else
@@ -211,6 +211,8 @@ char *trimString(char *str)
 
 unsigned int handle_op(Command c)
 {
+    int isExist;
+    isExist = 0;
     if (isdoublecomma(c.params))
     {
         printf("Multiple consecutive commas\n");
@@ -252,13 +254,13 @@ unsigned int handle_op(Command c)
         if (c.params[0] != '\0')
             printf("Extraneous text after end of command\n");
         else
-            return 0;
+            isExist = 1;
     }
     else
     {
         printf("Undefined command name\n");
     }
-    return 1;
+    return isExist;
 }
 
 void read_comp_op(char *str)
