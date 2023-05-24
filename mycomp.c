@@ -23,6 +23,7 @@ int main()
             cmd = getop(trimString(str));
             if (cmd.isNotNull && handle_op(cmd))
                 break;
+            free(cmd.op);
         }
         else
         {
