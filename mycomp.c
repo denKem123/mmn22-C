@@ -44,7 +44,7 @@ Command getop(char *str)
     if (str[i] != DIVIDER)
     {
         char *op;
-        op = malloc((i + 1) * sizeof(char));
+        op = malloc(MAX_LENGTH * sizeof(char));
         strncpy(op, str, i);
         p.op = op;
         p.params = removeSpaces(str + i);
@@ -261,7 +261,6 @@ unsigned int handle_op(Command c)
         printf("Undefined command name\n");
     }
     free(c.op);
-    c.op = NULL;
     return isExist;
 }
 
