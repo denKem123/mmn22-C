@@ -15,7 +15,7 @@ int main()
 
     while (1)
     {
-        printf("Enter a command:");
+        printf("\nEnter a command:");
         if (fgets(str, MAX_LENGTH, stdin) != NULL)
         {
             Command cmd;
