@@ -205,7 +205,7 @@ char *trimString(char *str)
         }
         str[i - start] = str[i];
     }
-    str[end] = '\0';
+    str[end - start] = '\0';
     return str;
 }
 
