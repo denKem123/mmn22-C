@@ -260,6 +260,7 @@ unsigned int handle_op(Command c)
     {
         printf("Undefined command name\n");
     }
+    free(c.op);
     return isExist;
 }
 
