@@ -195,11 +195,13 @@ char *trimString(char *str)
     int start;
     int end;
     int i;
-    for (i = 0, start = 0, end = 0; str[i]; i++)
+    int isStartSet;
+    for (i = 0, start = 0, end = 0, isStartSet = 0; str[i]; i++)
     {
         if (!isspace((unsigned char)str[i]))
         {
-            start = start ? start : i;
+            start = isStartSet ? start : i;
+            isStartSet = 1;
             end = i + 1;
         }
         str[i - start] = str[i];
