@@ -260,7 +260,6 @@ unsigned int handle_op(Command c)
     {
         printf("Undefined command name\n");
     }
-    free(c.op);
     return isExist;
 }
 
@@ -384,14 +383,4 @@ unsigned int isdoublecomma(char *str)
         }
     }
     return 0;
-}
-
-unsigned int isemptyparams(char *str)
-{
-    int i;
-    for (i = 0; str[i] && str[i] != ' ' && str[i] != '\n'; i++)
-    {
-        return 0;
-    }
-    return 1;
 }
