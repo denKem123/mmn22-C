@@ -27,7 +27,7 @@ int main()
         }
         else
         {
-            printf("End of input!!");
+            printf("End of input!!\n");
             break;
         }
     }
