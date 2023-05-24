@@ -20,7 +20,6 @@ int main()
         {
             Command cmd;
             printf("\n%s", str);
-            printf("\n%s", trimString(str));
             cmd = getop(trimString(str));
             if (cmd.isNotNull && !handle_op(cmd))
                 break;
