@@ -23,7 +23,6 @@ int main()
             cmd = getop(trimString(str));
             if (cmd.isNotNull && handle_op(cmd))
                 break;
-            free(cmd.op);
         }
         else
         {
@@ -261,6 +260,9 @@ unsigned int handle_op(Command c)
     {
         printf("Undefined command name\n");
     }
+    char *op = c.op;
+    c.op = "";
+    free(op);
     return isExist;
 }
 
