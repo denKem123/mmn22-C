@@ -39,11 +39,13 @@ unsigned int isvalidvariable(char v);
 unsigned int isdoublecomma(char *str);
 
 Command getop(char *str);
-ComplexParams getcomplexvar(char *str, unsigned int isLast);
-DoubleParams getdoubleparams(char *str, unsigned int isLast);
+ComplexParams getComplexVar(char *str, unsigned int isLast);
+DoubleParams getDoubleParams(char *str, unsigned int isLast);
+Complex *getComplex(char var);
 unsigned int handle_op(Command c);
+
 char *removeSpaces(char *str);
-Complex *get_complex(char var);
+char *trimString(char *str);
 
 void read_comp_op(char *str);
 void print_comp_op(char *str);
