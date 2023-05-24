@@ -19,7 +19,8 @@ int main()
         if (fgets(str, MAX_LENGTH, stdin) != NULL)
         {
             Command cmd;
-            printf("\n%s\n", str);
+            printf("\n%s", str);
+            printf("\n%s", trimString(str));
             cmd = getop(trimString(str));
             if (cmd.isNotNull && !handle_op(cmd))
                 break;
