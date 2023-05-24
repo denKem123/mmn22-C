@@ -20,8 +20,11 @@ int main()
         {
             Command cmd;
             printf("\n%s", str);
-            if (cmd.isNotNull)
+            if (cmd.op != NULL)
+            {
                 free(cmd.op);
+                cmd.op = NULL;
+            }
             cmd = getop(trimString(str));
             if (cmd.isNotNull && handle_op(cmd))
                 break;
