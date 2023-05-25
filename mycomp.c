@@ -140,9 +140,13 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     strncpy(doubleStr, str, i);
     number = atof(doubleStr);
     for (i = 0; i < doubleStr[i]; i++)
-        if (!(i == 0 && doubleStr[i] >= 49 && doubleStr[i] <= 57) &&
-            !(i != 0 && ((doubleStr[i] >= 48 && doubleStr[i] <= 57) || doubleStr[i] == 46)))
+    {
+        if ((i == 0 && (doubleStr[i] <= 49 || doubleStr[i] >= 57)))
+            if (doubleStr[i] == 48 && (doubleStr[i + 1] != '.' || doubleStr[i + 1] != '\0'))
+                isNumberStr = 0;
+        if (i != 0 && (doubleStr[i] <= 48 || doubleStr[i] >= 57) && doubleStr[i] != 46)
             isNumberStr = 0;
+    }
     if (isNumberStr)
     {
         if (isLast && str[i] != DIVIDER)
@@ -190,7 +194,7 @@ unsigned int handle_op(Command c)
 {
     int isExist;
     isExist = 0;
-    if (c.params[0]==DIVIDER)
+    if (c.params[0] == DIVIDER)
     {
         printf("Illegal comma\n");
     }
