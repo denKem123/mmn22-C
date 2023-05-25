@@ -47,8 +47,8 @@ Command getop(char *str)
         op = malloc(MAX_LENGTH * sizeof(char));
         strcpy(op, str);
         op[i] = '\0';
-        p.op = op;
-        p.params = removeSpaces(str + i);
+        strcpy(p.op, op);
+        strcpy(p.params, removeSpaces(str + i));
     }
     else
     {
@@ -239,12 +239,12 @@ void read_comp_op(char *str)
     DoubleParams dpReal;
     DoubleParams dpImg;
     cp = getComplexVar(str, 0);
-    if (cp.params!=NULL)
+    if (cp.params != NULL)
         dpReal = getDoubleParams(cp.params, 0);
-    if (dpReal.params!=NULL)
+    if (dpReal.params != NULL)
         dpImg = getDoubleParams(dpReal.params, 1);
 
-    if (cp.params!=NULL && dpReal.params!=NULL && dpImg.params!=NULL)
+    if (cp.params != NULL && dpReal.params != NULL && dpImg.params != NULL)
     {
         *cp.var = create_comp(dpReal.num, dpImg.num);
     }
@@ -255,7 +255,7 @@ void print_comp_op(char *str)
 {
     ComplexParams cp;
     cp = getComplexVar(str, 1);
-    if (cp.params!=NULL)
+    if (cp.params != NULL)
     {
         print_comp(*cp.var);
     }
@@ -267,9 +267,9 @@ void add_comp_op(char *str)
     ComplexParams cp1;
     ComplexParams cp2;
     cp1 = getComplexVar(str, 0);
-    if (cp1.params!=NULL)
+    if (cp1.params != NULL)
         cp2 = getComplexVar(cp1.params, 1);
-    if (cp1.params!=NULL && cp2.params!=NULL)
+    if (cp1.params != NULL && cp2.params != NULL)
     {
         print_comp(add_comp(*cp1.var, *cp2.var));
     }
@@ -281,9 +281,9 @@ void sub_comp_op(char *str)
     ComplexParams cp1;
     ComplexParams cp2;
     cp1 = getComplexVar(str, 0);
-    if (cp1.params!=NULL)
+    if (cp1.params != NULL)
         cp2 = getComplexVar(cp1.params, 1);
-    if (cp1.params!=NULL && cp2.params!=NULL)
+    if (cp1.params != NULL && cp2.params != NULL)
     {
         print_comp(sub_comp(*cp1.var, *cp2.var));
     }
@@ -295,9 +295,9 @@ void mult_comp_real_op(char *str)
     ComplexParams cp;
     DoubleParams dp;
     cp = getComplexVar(str, 0);
-    if (cp.params!=NULL)
+    if (cp.params != NULL)
         dp = getDoubleParams(cp.params, 1);
-    if (cp.params!=NULL && dp.params!=NULL)
+    if (cp.params != NULL && dp.params != NULL)
     {
         print_comp(mult_comp_real(dp.num, *cp.var));
     }
@@ -309,9 +309,9 @@ void mult_comp_img_op(char *str)
     ComplexParams cp;
     DoubleParams dp;
     cp = getComplexVar(str, 0);
-    if (cp.params!=NULL)
+    if (cp.params != NULL)
         dp = getDoubleParams(cp.params, 1);
-    if (cp.params!=NULL && dp.params!=NULL)
+    if (cp.params != NULL && dp.params != NULL)
     {
         print_comp(mult_comp_img(dp.num, *cp.var));
     }
@@ -323,9 +323,9 @@ void mult_comp_comp_op(char *str)
     ComplexParams cp1;
     ComplexParams cp2;
     cp1 = getComplexVar(str, 0);
-    if (cp1.params!=NULL)
+    if (cp1.params != NULL)
         cp2 = getComplexVar(cp1.params, 1);
-    if (cp1.params!=NULL && cp2.params!=NULL)
+    if (cp1.params != NULL && cp2.params != NULL)
     {
         print_comp(mult_comp_comp(*cp1.var, *cp2.var));
     }
@@ -336,7 +336,7 @@ void abs_comp_op(char *str)
 {
     ComplexParams cp;
     cp = getComplexVar(str, 1);
-    if (cp.params!=NULL)
+    if (cp.params != NULL)
     {
         printf("%.2f\n", abs_comp(*cp.var));
     }
