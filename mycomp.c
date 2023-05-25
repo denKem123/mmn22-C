@@ -34,6 +34,7 @@ int main()
     return 0;
 }
 
+/*get the command from the user and separate it to operation and params*/
 Command getop(char *str)
 {
     Command p;
@@ -46,7 +47,7 @@ Command getop(char *str)
         char *op;
         op = malloc(MAX_LENGTH * sizeof(char));
         strcpy(op, str);
-        op[i]='\0';
+        op[i] = '\0';
         p.op = op;
         p.params = removeSpaces(str + i);
         p.isNotNull = 1;
@@ -58,6 +59,7 @@ Command getop(char *str)
     return p;
 }
 
+/*return a reference to  an existing complex variable*/
 Complex *getComplex(char var)
 {
     switch (var)
@@ -77,11 +79,12 @@ Complex *getComplex(char var)
     }
 }
 
+/*get the first parameter and return it if it is a valid variable. and erase it from our current params string*/
 ComplexParams getComplexVar(char *str, unsigned int isLast)
 {
     ComplexParams cp;
     cp.isNotNull = 0;
-    if (isvalidvariable(str[0]))
+    if (isValidVariable(str[0]))
     {
         if (isLast && str[1] != DIVIDER)
         {
@@ -121,10 +124,12 @@ ComplexParams getComplexVar(char *str, unsigned int isLast)
     return cp;
 }
 
+/*get the first parameter and return it if it is a double. and erase it from our current params string*/
 DoubleParams getDoubleParams(char *str, unsigned int isLast)
 {
     DoubleParams dp;
     char *doubleStr;
+    int isNumberStr = 1;
     double number;
     int i;
 
@@ -134,8 +139,11 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     doubleStr = malloc((i + 1) * sizeof(char));
     strncpy(doubleStr, str, i);
     number = atof(doubleStr);
-    free(doubleStr);
-    if (number != 0.0)
+    for (i = 0; i < doubleStr[i]; i++)
+        if (!(i == 0 && doubleStr[i] >= 49 && doubleStr[i] <= 57) &&
+            !(i != 0 && ((doubleStr[i] >= 48 && doubleStr[i] <= 57) || doubleStr[i] == 46)))
+            isNumberStr = 0;
+    if (isNumberStr)
     {
         if (isLast && str[i] != DIVIDER)
         {
@@ -172,49 +180,21 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
             printf("Invalid parameter – not a number\n");
         }
     }
+    free(doubleStr);
 
     return dp;
 }
 
-char *removeSpaces(char *str)
-{
-    int i, j;
-    for (i = 0, j = 0; str[i]; i++)
-    {
-        if (!isspace((unsigned char)str[i]))
-        {
-            str[j++] = str[i];
-        }
-    }
-    str[j] = '\0';
-    return str;
-}
-
-char *trimString(char *str)
-{
-    int start;
-    int end;
-    int i;
-    int isStartSet;
-    for (i = 0, start = 0, end = 0, isStartSet = 0; str[i]; i++)
-    {
-        if (!isspace((unsigned char)str[i]))
-        {
-            start = isStartSet ? start : i;
-            isStartSet = 1;
-            end = i + 1;
-        }
-        str[i - start] = str[i];
-    }
-    str[end - start] = '\0';
-    return str;
-}
-
+/*check the command and select the proper function to handle the params*/
 unsigned int handle_op(Command c)
 {
     int isExist;
     isExist = 0;
-    if (isdoublecomma(c.params))
+    if (c.params[0]==DIVIDER)
+    {
+        printf("Illegal comma\n");
+    }
+    else if (isDoubleComma(c.params))
     {
         printf("Multiple consecutive commas\n");
     }
@@ -265,6 +245,7 @@ unsigned int handle_op(Command c)
     return isExist;
 }
 
+/*handle read comp command*/
 void read_comp_op(char *str)
 {
     ComplexParams cp;
@@ -282,6 +263,7 @@ void read_comp_op(char *str)
     }
 }
 
+/*handle print comp command*/
 void print_comp_op(char *str)
 {
     ComplexParams cp;
@@ -292,6 +274,7 @@ void print_comp_op(char *str)
     }
 }
 
+/*handle add two comp command*/
 void add_comp_op(char *str)
 {
     ComplexParams cp1;
@@ -305,6 +288,7 @@ void add_comp_op(char *str)
     }
 }
 
+/*handle sub two comp command*/
 void sub_comp_op(char *str)
 {
     ComplexParams cp1;
@@ -318,6 +302,7 @@ void sub_comp_op(char *str)
     }
 }
 
+/*handle multiply comp with real number command*/
 void mult_comp_real_op(char *str)
 {
     ComplexParams cp;
@@ -331,6 +316,7 @@ void mult_comp_real_op(char *str)
     }
 }
 
+/*handle multiply comp with imaginary number command*/
 void mult_comp_img_op(char *str)
 {
     ComplexParams cp;
@@ -344,6 +330,7 @@ void mult_comp_img_op(char *str)
     }
 }
 
+/*handle multiply two comp command*/
 void mult_comp_comp_op(char *str)
 {
     ComplexParams cp1;
@@ -357,6 +344,7 @@ void mult_comp_comp_op(char *str)
     }
 }
 
+/*handle abs comp command*/
 void abs_comp_op(char *str)
 {
     ComplexParams cp;
@@ -367,14 +355,16 @@ void abs_comp_op(char *str)
     }
 }
 
-unsigned int isvalidvariable(char v)
+/*check if the char is one of the 6 variable options*/
+unsigned int isValidVariable(char v)
 {
     if (v >= 65 && v <= 70)
         return 1;
     return 0;
 }
 
-unsigned int isdoublecomma(char *str)
+/*check for an occurrence of two dividers that are one next to the other*/
+unsigned int isDoubleComma(char *str)
 {
     int i;
     for (i = 0; str[i]; i++)
@@ -385,4 +375,40 @@ unsigned int isdoublecomma(char *str)
         }
     }
     return 0;
+}
+
+/*remove whitespace from the string*/
+char *removeSpaces(char *str)
+{
+    int i, j;
+    for (i = 0, j = 0; str[i]; i++)
+    {
+        if (!isspace((unsigned char)str[i]))
+        {
+            str[j++] = str[i];
+        }
+    }
+    str[j] = '\0';
+    return str;
+}
+
+/*remove whitespace from both ends of a string*/
+char *trimString(char *str)
+{
+    int start;
+    int end;
+    int i;
+    int isStartSet;
+    for (i = 0, start = 0, end = 0, isStartSet = 0; str[i]; i++)
+    {
+        if (!isspace((unsigned char)str[i]))
+        {
+            start = isStartSet ? start : i;
+            isStartSet = 1;
+            end = i + 1;
+        }
+        str[i - start] = str[i];
+    }
+    str[end - start] = '\0';
+    return str;
 }

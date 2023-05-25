@@ -35,17 +35,16 @@ typedef struct
     int isNotNull;
 } DoubleParams;
 
-unsigned int isvalidvariable(char v);
-unsigned int isdoublecomma(char *str);
+unsigned int isValidVariable(char v);
+unsigned int isDoubleComma(char *str);
+char *removeSpaces(char *str);
+char *trimString(char *str);
 
 Command getop(char *str);
 ComplexParams getComplexVar(char *str, unsigned int isLast);
 DoubleParams getDoubleParams(char *str, unsigned int isLast);
 Complex *getComplex(char var);
 unsigned int handle_op(Command c);
-
-char *removeSpaces(char *str);
-char *trimString(char *str);
 
 void read_comp_op(char *str);
 void print_comp_op(char *str);
