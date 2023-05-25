@@ -252,7 +252,7 @@ void read_comp_op(char *str)
     cp = getComplexVar(str, 0);
     if (cp.params != NULL)
         dpReal = getDoubleParams(cp.params, 0);
-    if (dpReal.params != NULL)
+    if (cp.params != NULL && dpReal.params != NULL)
         dpImg = getDoubleParams(dpReal.params, 1);
 
     if (cp.params != NULL && dpReal.params != NULL && dpImg.params != NULL)
