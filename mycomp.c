@@ -40,7 +40,7 @@ Command getop(char *str)
     int i;
 
     /*print current command*/
-    printf("\n%s", str);
+    printf("\n%s\n", str);
     p.op = NULL;
     p.params = NULL;
 
