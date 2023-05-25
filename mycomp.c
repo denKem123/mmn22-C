@@ -39,6 +39,10 @@ Command getop(char *str)
 {
     Command p;
     int i;
+
+    p.op = NULL;
+    p.params = NULL;
+
     for (i = 0; str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != DIVIDER; i++)
         ;
     if (str[i] != DIVIDER)
@@ -47,8 +51,8 @@ Command getop(char *str)
         op = malloc(MAX_LENGTH * sizeof(char));
         strcpy(op, str);
         op[i] = '\0';
-        strcpy(p.op, op);
-        strcpy(p.params, removeSpaces(str + i));
+        p.op = op;
+        p.params = removeSpaces(str + i);
     }
     else
     {
@@ -81,16 +85,20 @@ Complex *getComplex(char var)
 ComplexParams getComplexVar(char *str, unsigned int isLast)
 {
     ComplexParams cp;
+
+    cp.var = NULL;
+    cp.params = NULL;
+
     if (isValidVariable(str[0]))
     {
         if (isLast && str[1] != DIVIDER)
         {
-            strcpy(cp.params, "");
+            cp.params = "";
             cp.var = getComplex(str[0]);
         }
         else if (!isLast && str[1] == DIVIDER)
         {
-            strcpy(cp.params, str + 2);
+            cp.params = str + 2;
             cp.var = getComplex(str[0]);
         }
         else if (!isLast)
@@ -127,6 +135,9 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     double number;
     int i;
 
+    dp.num = 0;
+    dp.params = NULL;
+
     for (i = 0; str[i] && str[i] != DIVIDER; i++)
         ;
     doubleStr = malloc((i + 1) * sizeof(char));
@@ -136,12 +147,12 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     {
         if (isLast && str[i] != DIVIDER)
         {
-            strcpy(dp.params, "");
+            dp.params = "";
             dp.num = number;
         }
         else if (!isLast && str[i] == DIVIDER)
         {
-            strcpy(dp.params, str + i + 1);
+            dp.params = str + i + 1;
             dp.num = number;
         }
         else if (!isLast)
