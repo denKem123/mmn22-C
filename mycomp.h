@@ -36,6 +36,7 @@ typedef struct
 } DoubleParams;
 
 unsigned int isValidVariable(char v);
+int isDouble(char* str)
 unsigned int isDoubleComma(char *str);
 char *removeSpaces(char *str);
 char *trimString(char *str);

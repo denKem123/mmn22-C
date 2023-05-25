@@ -416,3 +416,43 @@ char *trimString(char *str)
     str[end - start] = '\0';
     return str;
 }
+
+/*check if the string is a valid number*/
+int isDouble(char* str) {
+    int dotCount = 0;
+    int digitCount = 0;
+    int i = 0;
+
+    // Check for optional starting sign of (+/-)
+    if (str[0] == '+' || str[0] == '-')
+        str++;
+
+    if (str[0] == '0' && (str[1] == '\0' ||str[1] == '.')){
+        digitCount++;
+        str++;
+    } 
+
+    // Check for digits before decimal point (if any)
+    while (str[i] >= '0' && str[i] <= '9') {
+        i++;
+        digitCount++;
+    }
+
+    // Check for decimal point (if any)
+    if (str[i] == '.') {
+        i++;
+        dotCount++;
+
+        // Check for digits after decimal point
+        while (str[i] >= '0' && str[i] <= '9') {
+            i++;
+            digitCount++;
+        }
+    }
+
+    // Check if the entire string was consumed and there was at least one digit
+    if (str[i] == '\0' && digitCount > dotCount && dotCount <= 1)
+        return 1;
+    else
+        return 0;
+}
