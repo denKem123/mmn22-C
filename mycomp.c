@@ -19,7 +19,6 @@ int main()
         if (fgets(str, MAX_LENGTH, stdin) != NULL)
         {
             Command cmd;
-            printf("\n%s", str);
             cmd = getop(trimString(str));
             if (cmd.params != NULL && handle_op(cmd))
                 break;
@@ -40,6 +39,7 @@ Command getop(char *str)
     Command p;
     int i;
 
+    printf("\n%s", str);
     p.op = NULL;
     p.params = NULL;
 
