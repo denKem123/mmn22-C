@@ -39,6 +39,7 @@ Command getop(char *str)
     Command p;
     int i;
 
+    /*print current command*/
     printf("\n%s", str);
     p.op = NULL;
     p.params = NULL;
