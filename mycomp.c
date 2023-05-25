@@ -416,7 +416,7 @@ int isDouble(char *str)
     int digitCount = 0;
     int i = 0;
 
-    // Check for optional starting sign of (+/-)
+    /* Check for optional starting sign of (+/-)*/
     if (str[0] == '+' || str[0] == '-')
         str+=1;
 
@@ -426,20 +426,20 @@ int isDouble(char *str)
         str+=1;
     }
 
-    // Check for digits before decimal point (if any)
+    /* Check for digits before decimal point (if any)*/
     while (str[i] >= '0' && str[i] <= '9')
     {
         i++;
         digitCount++;
     }
 
-    // Check for decimal point (if any)
+    /* Check for decimal point (if any)*/
     if (str[i] == '.')
     {
         i++;
         dotCount++;
 
-        // Check for digits after decimal point
+        /* Check for digits after decimal point*/
         while (str[i] >= '0' && str[i] <= '9')
         {
             i++;
@@ -447,7 +447,7 @@ int isDouble(char *str)
         }
     }
 
-    // Check if the entire string was consumed and there was at least one digit
+    /* Check if the entire string was consumed and there was at least one digit*/
     if (str[i] == '\0' && digitCount > dotCount && dotCount <= 1)
         return 1;
     else
