@@ -18,21 +18,18 @@ typedef struct
 {
     char *op;
     char *params;
-    int isNotNull;
 } Command;
 
 typedef struct
 {
     Complex *var;
     char *params;
-    int isNotNull;
 } ComplexParams;
 
 typedef struct
 {
     double num;
     char *params;
-    int isNotNull;
 } DoubleParams;
 
 unsigned int isValidVariable(char v);

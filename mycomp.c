@@ -21,7 +21,7 @@ int main()
             Command cmd;
             printf("\n%s", str);
             cmd = getop(trimString(str));
-            if (cmd.isNotNull && handle_op(cmd))
+            if (cmd.params != NULL && handle_op(cmd))
                 break;
         }
         else
@@ -39,7 +39,6 @@ Command getop(char *str)
 {
     Command p;
     int i;
-    p.isNotNull = 0;
     for (i = 0; str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != DIVIDER; i++)
         ;
     if (str[i] != DIVIDER)
@@ -50,7 +49,6 @@ Command getop(char *str)
         op[i] = '\0';
         p.op = op;
         p.params = removeSpaces(str + i);
-        p.isNotNull = 1;
     }
     else
     {
@@ -83,18 +81,15 @@ Complex *getComplex(char var)
 ComplexParams getComplexVar(char *str, unsigned int isLast)
 {
     ComplexParams cp;
-    cp.isNotNull = 0;
     if (isValidVariable(str[0]))
     {
         if (isLast && str[1] != DIVIDER)
         {
-            cp.isNotNull = 1;
             cp.params = "";
             cp.var = getComplex(str[0]);
         }
         else if (!isLast && str[1] == DIVIDER)
         {
-            cp.isNotNull = 1;
             cp.params = str + 2;
             cp.var = getComplex(str[0]);
         }
@@ -132,7 +127,6 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     double number;
     int i;
 
-    dp.isNotNull = 0;
     for (i = 0; str[i] && str[i] != DIVIDER; i++)
         ;
     doubleStr = malloc((i + 1) * sizeof(char));
@@ -142,13 +136,11 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     {
         if (isLast && str[i] != DIVIDER)
         {
-            dp.isNotNull = 1;
             dp.params = "";
             dp.num = number;
         }
         else if (!isLast && str[i] == DIVIDER)
         {
-            dp.isNotNull = 1;
             dp.params = str + i + 1;
             dp.num = number;
         }
@@ -247,12 +239,12 @@ void read_comp_op(char *str)
     DoubleParams dpReal;
     DoubleParams dpImg;
     cp = getComplexVar(str, 0);
-    if (cp.isNotNull)
+    if (cp.params!=NULL)
         dpReal = getDoubleParams(cp.params, 0);
-    if (dpReal.isNotNull)
+    if (dpReal.params!=NULL)
         dpImg = getDoubleParams(dpReal.params, 1);
 
-    if (cp.isNotNull && dpReal.isNotNull && dpImg.isNotNull)
+    if (cp.params!=NULL && dpReal.params!=NULL && dpImg.params!=NULL)
     {
         *cp.var = create_comp(dpReal.num, dpImg.num);
     }
@@ -263,7 +255,7 @@ void print_comp_op(char *str)
 {
     ComplexParams cp;
     cp = getComplexVar(str, 1);
-    if (cp.isNotNull)
+    if (cp.params!=NULL)
     {
         print_comp(*cp.var);
     }
@@ -275,9 +267,9 @@ void add_comp_op(char *str)
     ComplexParams cp1;
     ComplexParams cp2;
     cp1 = getComplexVar(str, 0);
-    if (cp1.isNotNull)
+    if (cp1.params!=NULL)
         cp2 = getComplexVar(cp1.params, 1);
-    if (cp1.isNotNull && cp2.isNotNull)
+    if (cp1.params!=NULL && cp2.params!=NULL)
     {
         print_comp(add_comp(*cp1.var, *cp2.var));
     }
@@ -289,9 +281,9 @@ void sub_comp_op(char *str)
     ComplexParams cp1;
     ComplexParams cp2;
     cp1 = getComplexVar(str, 0);
-    if (cp1.isNotNull)
+    if (cp1.params!=NULL)
         cp2 = getComplexVar(cp1.params, 1);
-    if (cp1.isNotNull && cp2.isNotNull)
+    if (cp1.params!=NULL && cp2.params!=NULL)
     {
         print_comp(sub_comp(*cp1.var, *cp2.var));
     }
@@ -303,9 +295,9 @@ void mult_comp_real_op(char *str)
     ComplexParams cp;
     DoubleParams dp;
     cp = getComplexVar(str, 0);
-    if (cp.isNotNull)
+    if (cp.params!=NULL)
         dp = getDoubleParams(cp.params, 1);
-    if (cp.isNotNull && dp.isNotNull)
+    if (cp.params!=NULL && dp.params!=NULL)
     {
         print_comp(mult_comp_real(dp.num, *cp.var));
     }
@@ -317,9 +309,9 @@ void mult_comp_img_op(char *str)
     ComplexParams cp;
     DoubleParams dp;
     cp = getComplexVar(str, 0);
-    if (cp.isNotNull)
+    if (cp.params!=NULL)
         dp = getDoubleParams(cp.params, 1);
-    if (cp.isNotNull && dp.isNotNull)
+    if (cp.params!=NULL && dp.params!=NULL)
     {
         print_comp(mult_comp_img(dp.num, *cp.var));
     }
@@ -331,9 +323,9 @@ void mult_comp_comp_op(char *str)
     ComplexParams cp1;
     ComplexParams cp2;
     cp1 = getComplexVar(str, 0);
-    if (cp1.isNotNull)
+    if (cp1.params!=NULL)
         cp2 = getComplexVar(cp1.params, 1);
-    if (cp1.isNotNull && cp2.isNotNull)
+    if (cp1.params!=NULL && cp2.params!=NULL)
     {
         print_comp(mult_comp_comp(*cp1.var, *cp2.var));
     }
@@ -344,7 +336,7 @@ void abs_comp_op(char *str)
 {
     ComplexParams cp;
     cp = getComplexVar(str, 1);
-    if (cp.isNotNull)
+    if (cp.params!=NULL)
     {
         printf("%.2f\n", abs_comp(*cp.var));
     }
@@ -417,12 +409,12 @@ int isDoubleNumber(char *str)
 
     /* Check for optional starting sign of (+/-)*/
     if (str[0] == '+' || str[0] == '-')
-        str+=1;
+        str += 1;
 
     if (str[0] == '0' && (str[1] == '\0' || str[1] == '.'))
     {
         digitCount++;
-        str+=1;
+        str += 1;
     }
 
     /* Check for digits before decimal point (if any)*/
