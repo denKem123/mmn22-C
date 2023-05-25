@@ -129,7 +129,6 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
 {
     DoubleParams dp;
     char *doubleStr;
-    int isNumberStr = 1;
     double number;
     int i;
 
@@ -453,3 +452,4 @@ int isDouble(char *str)
     else
         return 0;
 }
+
