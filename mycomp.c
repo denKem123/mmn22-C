@@ -139,15 +139,7 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     doubleStr = malloc((i + 1) * sizeof(char));
     strncpy(doubleStr, str, i);
     number = atof(doubleStr);
-    for (i = 0; i < doubleStr[i]; i++)
-    {
-        if ((i == 0 && (doubleStr[i] <= 49 || doubleStr[i] >= 57)))
-            if (doubleStr[i] == 48 && (doubleStr[i + 1] != '.' || doubleStr[i + 1] != '\0'))
-                isNumberStr = 0;
-        if (i != 0 && (doubleStr[i] <= 48 || doubleStr[i] >= 57) && doubleStr[i] != 46)
-            isNumberStr = 0;
-    }
-    if (isNumberStr)
+    if (isDouble(doubleStr))
     {
         if (isLast && str[i] != DIVIDER)
         {
