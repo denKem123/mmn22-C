@@ -85,12 +85,12 @@ ComplexParams getComplexVar(char *str, unsigned int isLast)
     {
         if (isLast && str[1] != DIVIDER)
         {
-            cp.params = "";
+            strcpy(cp.params, "");
             cp.var = getComplex(str[0]);
         }
         else if (!isLast && str[1] == DIVIDER)
         {
-            cp.params = str + 2;
+            strcpy(cp.params, str + 2);
             cp.var = getComplex(str[0]);
         }
         else if (!isLast)
@@ -136,12 +136,12 @@ DoubleParams getDoubleParams(char *str, unsigned int isLast)
     {
         if (isLast && str[i] != DIVIDER)
         {
-            dp.params = "";
+            strcpy(dp.params, "");
             dp.num = number;
         }
         else if (!isLast && str[i] == DIVIDER)
         {
-            dp.params = str + i + 1;
+            strcpy(dp.params, str + i + 1);
             dp.num = number;
         }
         else if (!isLast)
